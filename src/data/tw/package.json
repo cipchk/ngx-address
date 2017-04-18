@@ -1,0 +1,6 @@
+{
+  "name": "ngx-address-data-tw",
+  "version": "1.0.0",
+  "module": "index.js",
+  "typings": "index.d.ts"
+}

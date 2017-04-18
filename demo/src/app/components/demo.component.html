@@ -1,0 +1,88 @@
+<div class="row" style="margin-top: 50px;">
+    <div class="col-12 text-center" style="margin-bottom: 30px;">
+        <h2>Address Picker</h2>
+    </div>
+    <div class="col-6">
+        <p><strong>所在地</strong></p>
+        <div style="margin-top: 10px; margin-bottom: 20px;">
+            <p>Options: {{stan.options | json}}</p>
+            <p>Choose ID: {{stan.id}}</p>
+            <p>Values: {{stan.values | json}}</p>
+            <p>Result: {{stan.result | json}}</p>
+        </div>
+        <ngx-address [(ngModel)]="stan.id" 
+                     [options]="stan.options"
+                     [values]="stan.values"
+                     (onSelected)="onStanSelected($event)"></ngx-address>
+        
+        <div style="margin-top: 20px; line-height: 2;">
+            <button type="button" class="btn btn-primary" (click)="stan.id = '310105'">设置【上海-长宁】ngModel</button>
+            <button type="button" class="btn btn-primary" (click)="stan.values = '310105'">设置【上海-长宁】values</button>
+            <button type="button" class="btn btn-primary" (click)="stan.id = '310105001'">设置【上海-长宁-建外街道】ngModel</button>
+            <button type="button" class="btn btn-primary" (click)="stan.values = '310105001'">设置【上海-长宁-建外街道】values</button>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button type="button" class="btn btn-info" (click)="onStanSetHasStree()">切换【自定义街道】地址库</button>
+            <button type="button" class="btn btn-info" (click)="onStanSetNotStree()">切换【无街道】地址库</button>
+        </div>
+    </div>
+    <div class="col-6">
+        <p><strong>所在地（含街道）</strong></p>
+        <div style="margin-top: 10px; margin-bottom: 20px;">
+            <p>Choose ID: {{stan_stree.id}}</p>
+            <p>Result: {{stan_stree.result | json}}</p>
+        </div>
+        <ngx-address [(ngModel)]="stan_stree.id" 
+                     [options]="stan_stree.options"
+                     (onSelected)="onStanStreeSelected($event)"></ngx-address>
+    </div>
+</div>
+<div class="row" style="margin-top: 50px;">
+    <div class="col-12 text-center" style="margin-bottom: 30px;">
+        <h2>Address Library</h2>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Full</label>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-btn" [ngClass]="{'show': typeShow}" (click)="typeShow=!typeShow">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            请选择
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" (click)="type=''">请选择</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a *ngFor="let i of address" (click)="type=i.type" class="dropdown-item" href="#">{{i.type}}</a>
+                        </div>
+                    </div>
+                    <div *ngFor="let i of address" [hidden]="i.type !== type" class="form-control">
+                        <ngx-address [(ngModel)]="i.id" [options]="i.options"></ngx-address>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4" *ngFor="let i of address">
+                <label>{{i.type}}</label>
+                <ngx-address [(ngModel)]="i.id" [options]="i.options"></ngx-address>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="col-12 text-center" style="margin-bottom: 30px;">
+        <h2>Custom Data</h2>
+    </div>
+    <div class="col-6">
+        <pre [innerHTML]="code"></pre>
+    </div>
+    <div class="col-6">
+        <div style="margin-top: 10px; margin-bottom: 20px;">
+            <p>Choose ID: {{custom.id}}</p>
+            <p>Result: {{custom.result | json}}</p>
+        </div>
+        <ngx-address [(ngModel)]="custom.id" 
+                     [options]="custom.options"
+                     (onSelected)="onCustomSelected($event)"></ngx-address>
+    </div>
+</div>
