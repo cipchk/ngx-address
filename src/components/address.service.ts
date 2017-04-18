@@ -1,5 +1,6 @@
 import { Result } from './interfaces/result';
-import { Data, DataItem } from './interfaces/data';
+import { DataItem } from './interfaces/data-item';
+import { Data } from './interfaces/data';
 import { Options } from './interfaces/options';
 import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter } from '@angular/core';

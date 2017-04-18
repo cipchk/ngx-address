@@ -1,10 +1,5 @@
-/**
- * 数据类型
- */
-export enum DataType {
-    list = 1,
-    group = 2
-}
+import { DataType } from './data-type';
+import { DataItem } from './data-item';
 
 export interface Data {
     /**
@@ -27,28 +22,4 @@ export interface Data {
      * @type {{ [key: string]: Array<DataItem> }}
      */
     group?: any
-}
-
-export interface DataItem {
-    [key: string]: any;
-    /**
-     * 编号
-     * 
-     * @type {string}
-     */
-    id: string;
-
-    /**
-     * 名称
-     * 
-     * @type {string}
-     */
-    name: string;
-
-    /**
-     * 提醒
-     * 
-     * @type {boolean}
-     */
-    tips?: boolean;
 }

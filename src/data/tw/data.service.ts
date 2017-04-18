@@ -1,7 +1,8 @@
 import { IExternalData } from './../../components/interfaces/external-data';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Data, DataType } from '../../components/interfaces/data'
+import { DataType } from '../../components/interfaces/data-type'
+import { Data } from '../../components/interfaces/data'
 import { Subscriber } from "rxjs/Subscriber";
 
 @Injectable()

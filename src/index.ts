@@ -1,3 +1,5 @@
+export * from './components/interfaces/data-type';
+export * from './components/interfaces/data-item';
 export * from './components/interfaces/data';
 export * from './components/interfaces/result';
 export * from './components/interfaces/options';
