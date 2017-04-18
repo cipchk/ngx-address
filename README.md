@@ -144,7 +144,7 @@ onCustomSelected(value: any) {
 ### Options Interface
 
 | 名称    | 类型           | 默认值  | 描述 |
-| ------- |:-------------:| -----:| -----:|
+| ------- | ------------- | ----- | ----- |
 | placeholder | string | 请选择省市区 | 提示信息 ||
 | separator | string | / | 提示分隔符信息 ||
 | types | string[] | [ '省份', '城市', '县区' ] | 数据类型集合 ||
@@ -158,7 +158,7 @@ onCustomSelected(value: any) {
 ### Result Interface
 
 | 名称    | 类型           | 默认值  | 描述 |
-| ------- |:-------------:| -----:| -----:|
+| ------- | ------------- | ----- | ----- |
 | id | string |  | 编号 |
 | name | string |  | 名称 |
 | paths | any[] |  | 已选择路径项 |
@@ -192,7 +192,7 @@ constructor(private china: AddressDataChinaService) {
 ### List
 
 | Module Name | 名称 |  描述 |
-| ------- |:----- |:-----:|
+| ------- | ------------- | ----- |
 | AddressDataChinaModule | 中国（含港澳） | 最小县区级 |
 | AddressDataCNModule | 中国（不含港澳） | 最小县区级 |
 | AddressDataKotModule | 港澳 | 最小县区级 |
@@ -206,7 +206,7 @@ _以上地址库将会持续更新_
 通过实现 `IExternalData` 接口，创建属于自己地址库，有关细节可以参考 `src/data/china/data.service.ts`。
 
 | 名称    | 类型           | 默认值  | 描述 |
-| ------- |:-------------:| -----:| -----:|
+| ------- | ------------- | ----- | ----- |
 | getTypes | Array<string> |  | 数据类型集合 |
 | getJumps | Array<string> |  | 可跳过数据，以 `id` 为判断标准 |
 | getData | Function |  | 调用时会传递 `index` （当前面板下标位，从0开始）、`id`（上一个面板选择的编号，如果第一个面板传递 `''`），返回 `Observable<Data>` 类型。 |
