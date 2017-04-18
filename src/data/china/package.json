@@ -1,6 +1,9 @@
 {
-  "name": "ngx-address-data-china",
+  "name": "ngx-address/data/china",
   "version": "1.0.0",
   "module": "index.js",
-  "typings": "index.d.ts"
+  "typings": "index.d.ts",
+  "peerDependencies": {
+      "ngx-address": "^1.0.0"
+  }
 }

@@ -1,6 +1,5 @@
 {
   "name": "ngx-address",
-  "version": "1.0.1",
   "dependencies": {
   },
   "peerDependencies": {

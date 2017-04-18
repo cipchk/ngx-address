@@ -4,6 +4,7 @@ export * from './components/interfaces/data';
 export * from './components/interfaces/result';
 export * from './components/interfaces/options';
 export * from './components/interfaces/tab.item';
+export * from './components/interfaces/external-data';
 export * from './components/pipes/keys.pipe';
 export * from './components/off-click';
 export * from './components/address.service';

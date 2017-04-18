@@ -2,5 +2,8 @@
   "name": "ngx-address-data-tw",
   "version": "1.0.0",
   "module": "index.js",
-  "typings": "index.d.ts"
+  "typings": "index.d.ts",
+  "peerDependencies": {
+      "ngx-address": "^1.0.0"
+  }
 }
