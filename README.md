@@ -45,6 +45,8 @@ export class AppModule { }
 ```
 
 ```
+import { AddressDataChinaService } from 'ngx-address/data/china';
+
 @Component({
     selector: 'demo',
     template: `
@@ -58,6 +60,7 @@ export class DemoComponent implements OnInit {
     public opt: any;
     constructor(private china: AddressDataChinaService) {
         this.opt = {
+            jumps: this.china.getJumps(),
             data: this.china.getData.bind(this.china)
         };
     }
