@@ -36,6 +36,7 @@ export class DemoComponent implements OnInit {
     };
 
     public custom: any;
+    public customValues: string[];
     public address: any[] = [];
     public typeShow: boolean = false;
     public type: '';
@@ -92,11 +93,11 @@ export class DemoComponent implements OnInit {
                     return new Observable(observer => {
                         if (customData.findIndex(w => w.index === index) === -1) {
                             customData.push(...Array.from({
-                                length: Math.floor(Math.random() * 10) + 1
+                                length: 10
                             }).map((item, idx) => {
                                 return {
                                     index: index,
-                                    id: (index + 1) + idx,
+                                    id: '' + (index + 1) + idx,
                                     name: types[index] + '-' + idx,
                                     other_data: true
                                 }
@@ -106,8 +107,11 @@ export class DemoComponent implements OnInit {
                             type: DataType.list,
                             list: customData.filter(w => w.index === index)
                         };
-                        observer.next(_tmp);
-                        observer.complete();
+                        // 模拟按随机时间点返回数据
+                        setTimeout(() => {
+                            observer.next(_tmp);
+                            observer.complete();
+                        }, Math.floor(Math.random() * 10) * 90);
                     });
                 }
             }

@@ -83,6 +83,12 @@
         </div>
         <ngx-address [(ngModel)]="custom.id" 
                      [options]="custom.options"
+                     [values]="customValues"
                      (onSelected)="onCustomSelected($event)"></ngx-address>
+
+        <div style="margin-top: 20px; line-height: 2;">
+            <button type="button" class="btn btn-primary" (click)="customValues=['10', '20', '30']">设置ngModel</button>
+        </div>
+
     </div>
 </div>

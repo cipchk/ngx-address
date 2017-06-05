@@ -3,6 +3,7 @@ import { DataItem } from './interfaces/data-item';
 import { Data } from './interfaces/data';
 import { Options } from './interfaces/options';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 import { Injectable, EventEmitter } from '@angular/core';
 import { DataType } from "../index";
 
@@ -77,8 +78,8 @@ export class AddressService {
         let items = this.bd[index].data.items,
             res;
         for (let key in items) {
-             res = items[key].find((i: any) => id === i.id);
-             if (res) break;
+            res = items[key].find((i: any) => id === i.id);
+            if (res) break;
         }
         return res;
     }
@@ -104,7 +105,7 @@ export class AddressService {
         return [];
     }
 
-    private putResult(bdIndex: number, id: string, item: DataItem) {
+    private putResult(bdIndex: number, id: string, item: DataItem, isClear: boolean = true) {
         let items = this.bd[bdIndex].data.items;
         for (let key in items) {
             items[key].forEach((i: any) => {
@@ -119,10 +120,12 @@ export class AddressService {
         delete item['selected'];
         this.result.paths.push(item);
         this.title = this.result.paths.map((i: DataItem) => i.name).join(`<i class="separator">${this.options.separator}</i>`)
-        this.bd.forEach(i => {
-            if (i.index > bdIndex)
-                i.data = {};
-        });
+        if (isClear) {
+            this.bd.forEach(i => {
+                if (i.index > bdIndex)
+                    i.data = {};
+            });
+        }
     }
 
     /**
@@ -142,18 +145,23 @@ export class AddressService {
         }
 
         const max = that.options.types.length;
+        let load$: Observable<any>[] = [];
         addresss.forEach((value, index) => {
             if (index >= max) return;
-            that.load(index, index > 0 ? addresss[index - 1] : '', value).subscribe(res => {
-                that.putResult(index, value, that.findItem(index, value));
-            });
+            load$.push(that.load(index, index > 0 ? addresss[index - 1] : '', value));
         });
         // 检查下一个面板是否存在，存在还需要加载数据
-        if (max > addresss.length) {
-            that.load(addresss.length, addresss[addresss.length - 1]).subscribe(res => {
-                that.setHead(addresss.length);
-            });
+        const isLimit = max > addresss.length;
+        if (isLimit) {
+            load$.push(that.load(addresss.length, addresss[addresss.length - 1]));
         }
+
+        Observable.forkJoin(...load$).subscribe(ls => {
+            for (let item of ls) {
+                this.putResult(item.index, item.value, this.findItem(item.index, item.value), false);
+            }
+            if (isLimit) this.setHead(addresss.length);
+        });
     }
 
     onSelected(bdIndex: number, id: string, item: DataItem) {
@@ -172,25 +180,33 @@ export class AddressService {
         }
     }
 
-    private load(index: number, id: string, defaultValue?: string): Observable<null> {
+    private load(index: number, id: string, defaultValue?: string): Observable<{ index: number, value: any }> {
         return new Observable(obs => {
             const fn = this.options.data || this.options.http;
             fn(index, id).subscribe((res: Data) => {
+                const returnValue = {
+                    index: index,
+                    value: defaultValue
+                };
                 if (res) {
                     this._renderData(index, res, defaultValue);
-                    obs.next();
+                    obs.next(returnValue);
                     obs.complete();
                     return;
                 }
 
-                this.options.http && this.options.http(index, id).subscribe((httpRes: Data) => {
-                    this._renderData(index, httpRes, defaultValue);
-                    obs.next();
-                    obs.complete();
-                }, err => {
-                    obs.error(err);
-                    obs.complete();
-                });
+                // 当只有HTTP请求时不再处理
+                if (this.options.data && this.options.http) {
+                    this.options.http(index, id).subscribe((httpRes: Data) => {
+                        this._renderData(index, httpRes, defaultValue);
+                        obs.next(returnValue);
+                        obs.complete();
+                    }, err => {
+                        obs.error(err);
+                        obs.complete();
+                    });
+                }
+
             }, err => {
                 obs.error(err);
                 obs.complete();
