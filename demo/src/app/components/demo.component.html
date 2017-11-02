@@ -10,18 +10,18 @@
             <p>Values: {{stan.values | json}}</p>
             <p>Result: {{stan.result | json}}</p>
         </div>
-        <ngx-address [(ngModel)]="stan.id" 
+        <ngx-address [(ngModel)]="stan.id"
                      [options]="stan.options"
                      [values]="stan.values"
                      (onSelected)="onStanSelected($event)"></ngx-address>
-        
+
         <div style="margin-top: 20px; line-height: 2;">
             <button type="button" class="btn btn-primary" (click)="stan.id = '310105'">设置【上海-长宁】ngModel</button>
             <button type="button" class="btn btn-primary" (click)="stan.values = '310105'">设置【上海-长宁】values</button>
             <button type="button" class="btn btn-primary" (click)="stan.id = '310105001'">设置【上海-长宁-建外街道】ngModel</button>
             <button type="button" class="btn btn-primary" (click)="stan.values = '310105001'">设置【上海-长宁-建外街道】values</button>
         </div>
-        
+
         <div style="margin-top: 20px;">
             <button type="button" class="btn btn-info" (click)="onStanSetHasStree()">切换【自定义街道】地址库</button>
             <button type="button" class="btn btn-info" (click)="onStanSetNotStree()">切换【无街道】地址库</button>
@@ -33,7 +33,7 @@
             <p>Choose ID: {{stan_stree.id}}</p>
             <p>Result: {{stan_stree.result | json}}</p>
         </div>
-        <ngx-address [(ngModel)]="stan_stree.id" 
+        <ngx-address [(ngModel)]="stan_stree.id"
                      [options]="stan_stree.options"
                      (onSelected)="onStanStreeSelected($event)"></ngx-address>
     </div>
@@ -51,7 +51,7 @@
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             请选择
                         </button>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" [ngClass]="{'show': typeShow}">
                             <a class="dropdown-item" href="#" (click)="type=''">请选择</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <a *ngFor="let i of address" (click)="type=i.type" class="dropdown-item" href="#">{{i.type}}</a>
@@ -81,7 +81,7 @@
             <p>Choose ID: {{custom.id}}</p>
             <p>Result: {{custom.result | json}}</p>
         </div>
-        <ngx-address [(ngModel)]="custom.id" 
+        <ngx-address [(ngModel)]="custom.id"
                      [options]="custom.options"
                      [values]="customValues"
                      (onSelected)="onCustomSelected($event)"></ngx-address>

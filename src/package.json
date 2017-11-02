@@ -1,7 +1,3 @@
 {
-  "name": "ngx-address",
-  "dependencies": {
-  },
-  "peerDependencies": {
-  }
+  "name": "ngx-address"
 }

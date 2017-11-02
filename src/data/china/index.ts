@@ -1,2 +1,13 @@
+import { NgModule } from '@angular/core';
+import { HttpModule } from "@angular/http";
+
+import { AddressDataChinaService } from "./data.service";
+
 export * from './data.service';
-export * from './data.module';
+
+@NgModule({
+  providers: [ AddressDataChinaService ]
+})
+export class AddressDataChinaModule {
+
+}

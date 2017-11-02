@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxAddressModule } from '../ngx-address';
+import { NgxAddressModule } from 'ngx-address';
 
 const html = ``;
 
